@@ -1,4 +1,4 @@
-# nosqlite
+# nosqlite [![Build Status](https://secure.travis-ci.org/pksunkara/nosqlite.png)](http://travis-ci.org/pksunkara/nosqlite)
 
 nosqlite is human readable nosql type filesystem json store
 

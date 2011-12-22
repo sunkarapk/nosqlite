@@ -20,7 +20,7 @@ vows
 
       'exists()':
         topic: (db) ->
-          db.exists this.callback
+          db.exists @callback
 
         'should be successful': (exists) ->
           assert.isTrue exists
@@ -47,7 +47,7 @@ vows
 
       'exists()':
         topic: (db) ->
-          db.exists this.callback
+          db.exists @callback
 
         'should be successful': (exists) ->
           assert.isFalse exists
