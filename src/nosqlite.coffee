@@ -29,7 +29,6 @@ nosqlite.Connection = (arg) ->
 # Database class which we work with
 nosqlite.Connection::database = (name, mode) ->
   that = this
-  connection = this
 
   # Variables
   dir: path.resolve that.path, name
@@ -73,16 +72,17 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Get doc by id
   get: (id, cb) ->
-    fs.readFile @file(id), 'utf8', cb
+    fs.readFile @file(id), 'utf8', (err, data) ->
+      cb err, JSON.parse(data)
 
   getSync: (id) ->
-    fs.readFileSync @files(id), 'utf8'
+    JSON.parse fs.readFileSync @files(id), 'utf8'
 
   # Remove doc by id
-  remove: (id, cb) ->
+  delete: (id, cb) ->
     fs.unlink @file(id), cb
 
-  removeSync: (id) ->
+  deleteSync: (id) ->
     fs.unlinkSync @file(id)
 
   # Update doc by id
@@ -127,4 +127,4 @@ nosqlite.Connection::database = (name, mode) ->
   allSync: ->
     files = fs.readdirSync @dir
     files.map (e) ->
-      @getSync path.basename(file, '.json')
+      @getSync path.basename file, '.json'

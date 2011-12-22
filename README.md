@@ -9,7 +9,130 @@ npm install nosqlite
 
 ## Usage
 
+### Create a connection
+
 ```js
+// Default path for store
+connection = new(require('nosqlite').Connection)();
+
+// Custom path for store
+connection = new(require('nosqlite').Connection('/path/to/store');
+```
+
+### Select a database
+
+```js
+// Default db is 'test'
+db = connection.database('dummy');
+```
+
+### Check if database exists
+
+```js
+// Async
+db.exists(function (exists) {
+  if (!exists) console.log('Need to create it');
+});
+
+// Sync
+if (!db.existsSync()) console.log('Need to create it');
+```
+
+### Create a database
+
+```js
+// Async
+db.create(function (err) {
+  if (err) throw err;
+});
+
+//Sync
+db.createSync();
+```
+
+### Destroy a database
+
+```js
+// Async
+db.destroy(function (err) {
+  if (err) throw err;
+});
+
+//Sync
+db.destroySync();
+```
+
+### Create a document
+
+```js
+// Async
+db.post(obj, function (err) {
+  if (err) throw err;
+});
+
+// Sync
+db.postSync(obj);
+```
+
+### Get a document
+
+```js
+// Async
+db.get('bob', function(err, obj) {
+  if (err) throw err;
+  console.log(obj);
+});
+
+// Sync
+db.getSync('bob');
+```
+
+### Update a document
+
+```js
+// Async
+db.put('bob', {age: 35}, function (err) {
+  if (err) throw err;
+});
+
+// Sync
+db.putSync('bob', {age: 35});
+```
+
+### Delete a document
+
+```js
+// Async
+db.delete('bob', function (err) {
+  if (err) throw err;
+});
+
+// Sync
+db.deleteSync('bob');
+```
+
+### Find a document
+
+```js
+// Async
+db.find({hair: 'black'}, function (err, docs) {
+  if (err) throw err;
+});
+
+// Sync
+docs = db.findSync({hair: 'black'});
+```
+
+### All documents
+
+```js
+// Async
+db.all(function (err, docs) {
+  if (err) throw err;
+});
+
+// Sync
+docs = db.allSync();
 ```
 
 If you like this project, please watch this and follow me.
