@@ -9,6 +9,7 @@ nosqlite = module.exports
 # Requiring modules
 path = require 'path'
 fs = require 'fs'
+rimraf = require 'rimraf'
 
 # Declaring variables
 nosqlite.path = path.join path.resolve(__dirname, '..'), 'data'
@@ -40,3 +41,17 @@ nosqlite.Connection::database = (name, mode) ->
 
   existsSync: ->
     path.existsSync @dir
+
+  # Create db
+  create: (cb) ->
+    fs.mkdir @dir, @mode, cb
+
+  createSync: ->
+    fs.mkdirSync @dir, @mode
+
+  # Destroy db
+  destroy: (cb) ->
+    rimraf @dir, cb
+
+  destroySync: ->
+    rimraf.sync @dir
