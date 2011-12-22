@@ -19,12 +19,11 @@ nosqlite.Connection::database = (name) ->
   that = this
   connection = this
 
-  dir = path.resolve this.dir, name
-
+  dir: path.resolve this.path, name
   name: name
 
   exists: (cb) ->
-    path.exists dir, cb
+    path.exists @dir, cb
 
   existsSync: ->
-    path.existsSync dir
+    path.existsSync @dir
