@@ -1,27 +1,40 @@
-path = require 'path'
-fs = require 'fs'
+#
+# nosqlite.coffee - top level file
+#
+# Copyright © 2011 Pavan Kumar Sunkara. All rights reserved
+#
 
 nosqlite = module.exports
 
+# Requiring modules
+path = require 'path'
+fs = require 'fs'
+
+# Declaring variables
 nosqlite.path = path.join path.resolve(__dirname, '..'), 'data'
 
+# Connection class for nosqlite
 nosqlite.Connection = (arg) ->
   options = {}
-  this.path = nosqlite.path
+  @path = nosqlite.path
 
   if typeof(arg) is 'object'
     options = arg
-    this.path = options.path
+    @path = options.path
   else if typeof(arg) is 'string'
-    this.path = arg
+    @path = arg
 
-nosqlite.Connection::database = (name) ->
+# Database class which we work with
+nosqlite.Connection::database = (name, mode) ->
   that = this
   connection = this
 
-  dir: path.resolve this.path, name
-  name: name
+  # Variables
+  dir: path.resolve that.path, name
+  name: name || 'test'
+  mode: mode || '0775'
 
+  # Check if db exists
   exists: (cb) ->
     path.exists @dir, cb
 

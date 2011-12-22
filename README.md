@@ -1,6 +1,6 @@
 # nosqlite
 
-nosqlite is a readable nosql type filesystem json store
+nosqlite is human readable nosql type filesystem json store
 
 ## Installation
 ```

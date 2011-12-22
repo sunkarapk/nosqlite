@@ -3,4 +3,3 @@ npm-debug.log
 *.swp
 lib
 docs
-test/fixtures/*
