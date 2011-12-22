@@ -9,6 +9,7 @@ nosqlite = module.exports
 # Requiring modules
 path = require 'path'
 fs = require 'fs'
+async = require 'async'
 rimraf = require 'rimraf'
 
 # Declaring variables
@@ -55,3 +56,28 @@ nosqlite.Connection::database = (name, mode) ->
 
   destroySync: ->
     rimraf.sync @dir
+
+  # Get doc by id
+  get: (id, cb) ->
+
+  getSync: (id) ->
+
+  # Remove doc by id
+  remove: (id, cb) ->
+
+  removeSync: (id) ->
+
+  # Update doc by id
+  put: (id, obj, cb) ->
+
+  putSync: (id, obj) ->
+
+  # Create doc
+  post: (obj, cb) ->
+
+  postSync: (obj) ->
+
+  # Find a doc
+  find: (cond, cb) ->
+
+  findSync: (cond) ->
