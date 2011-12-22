@@ -22,6 +22,13 @@ npm test
 ## Contributors
 Here is a list of [Contributors](http://github.com/pksunkara/nosqlite/contributors)
 
+### TODO
+
+- Authentication system
+- Map-Reduce (views)
+- Auto ID generation
+- Beautify JSON written to file
+
 __I accept pull requests and guarantee a reply back within a day__
 
 ## License
