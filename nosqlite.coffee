@@ -73,10 +73,10 @@ nosqlite.Connection::database = (name, mode) ->
   # Get doc by id
   get: (id, cb) ->
     fs.readFile @file(id), 'utf8', (err, data) ->
-      cb err, JSON.parse(data)
+      cb err, (JSON.parse(data) if data)
 
   getSync: (id) ->
-    JSON.parse fs.readFileSync @files(id), 'utf8'
+    JSON.parse fs.readFileSync @file(id), 'utf8'
 
   # Remove doc by id
   delete: (id, cb) ->
