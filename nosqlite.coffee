@@ -89,18 +89,18 @@ nosqlite.Connection::database = (name, mode) ->
   put: (id, obj, cb) ->
     @get id, (err, data) ->
       data = @project JSON.parse(data), obj
-      fs.writeFile @file(id), JSON.stringify(data), cb
+      fs.writeFile @file(id), JSON.stringify(data, null, 2), cb
 
   putSync: (id, obj) ->
     data = @project JSON.parse(@getSync(id)), obj
-    fs.writeFileSync @file(id), JSON.stringify(data)
+    fs.writeFileSync @file(id), JSON.stringify(data, null, 2)
 
   # Create doc
   post: (obj, cb) ->
-    fs.writeFile @file(obj.id or obj._id), JSON.stringify(obj), cb
+    fs.writeFile @file(obj.id or obj._id), JSON.stringify(obj, null, 2), cb
 
   postSync: (obj) ->
-    fs.writeFileSync @file(obj.id or obj._id), JSON.stringify(obj)
+    fs.writeFileSync @file(obj.id or obj._id), JSON.stringify(obj, null, 2)
 
   # Find a doc
   find: (cond, cb) ->
