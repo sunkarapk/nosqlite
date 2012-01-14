@@ -128,6 +128,7 @@ vows
 
         'should be successful': (err, data) ->
           assert.isNull err
+          assert.equal data.id, 'bob'
           assert.equal data.name, 'bob'
           assert.equal data.age, 35
 
@@ -136,6 +137,7 @@ vows
           db.getSync 'bob'
 
         'should be successful': (data) ->
+          assert.equal data.id, 'bob'
           assert.equal data.name, 'bob'
           assert.equal data.age, 35
 
@@ -154,5 +156,141 @@ vows
         'should throw error': (db) ->
           assert.throws ->
             db.getSync 'tim'
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'post()':
+        topic: (db) ->
+          db.post
+            id: 'tim'
+            name: 'tim'
+            age: 31
+          , @callback
+
+        'should be successful': (err) ->
+          assert.isUndefined err
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'post() should save':
+        topic: (db) ->
+          db.getSync 'tim'
+
+        'successfully': (data) ->
+          assert.equal data.id, 'tim'
+          assert.equal data.name, 'tim'
+          assert.equal data.age, 31
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'delete()':
+        topic: (db) ->
+          db.delete 'tim', @callback
+
+        'should be successful': (err) ->
+          assert.isUndefined err
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'delete() should remove':
+        topic: (db) ->
+          db.get 'tim', @callback
+
+        'successfully': (err, data) ->
+          assert.isUndefined data
+          assert.equal err.code, 'ENOENT'
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'postSync()':
+        topic: (db) ->
+          db
+
+        'should be successful': (db) ->
+          assert.doesNotThrow ->
+            db.postSync
+              id: 'tim'
+              name: 'tim'
+              age: 31
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'postSync() should save':
+        topic: (db) ->
+          db.getSync 'tim'
+
+        'successfully': (data) ->
+          assert.equal data.id, 'tim'
+          assert.equal data.name, 'tim'
+          assert.equal data.age, 31
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'deleteSync()':
+        topic: (db) ->
+          db
+
+        'should be successful': (db) ->
+          assert.doesNotThrow ->
+            db.deleteSync 'tim'
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'deleteSync() should remove':
+        topic: (db) ->
+          db.get 'tim', @callback
+
+        'successfully': (err, data) ->
+          assert.isUndefined data
+          assert.equal err.code, 'ENOENT'
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      # 'delete() non-existing':
+      #   topic: (db) ->
+      #     db.delete 'tim', @callback
+
+      #   'should throw error': (err) ->
+      #     assert.equal err.code, 'ENOENT'
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'deleteSync() non-existing':
+        topic: (db) ->
+          db
+
+        'should throw error': (db) ->
+          assert.throws ->
+            db.deleteSync 'tim'
 
   .export(module)
