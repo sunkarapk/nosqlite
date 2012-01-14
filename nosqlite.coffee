@@ -13,7 +13,7 @@ async = require 'async'
 rimraf = require 'rimraf'
 
 # Declaring variables
-nosqlite.path = path.join path.resolve(__dirname, '..'), 'data'
+nosqlite.path = path.join __dirname, 'data'
 
 # Connection class for nosqlite
 nosqlite.Connection = (arg) ->

@@ -1,5 +1,5 @@
 .gitignore
-docs
-src
 test
 Cakefile
+nosqlite.coffee
+.travis.yml

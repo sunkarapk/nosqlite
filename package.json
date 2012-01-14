@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git://github.com/pksunkara/nosqlite.git"
   },
-  "main": "./lib/nosqlite",
+  "main": "./nosqlite",
   "scripts": {
     "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.coffee')",
     "prepublish": "./node_modules/.bin/cake lib"

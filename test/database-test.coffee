@@ -3,7 +3,7 @@ assert = require 'assert'
 fs = require 'fs'
 path = require 'path'
 
-nosqlite = require '../src/nosqlite'
+nosqlite = require '../nosqlite'
 connection = new(nosqlite.Connection) path.resolve(__dirname, 'fixtures')
 
 vows
