@@ -293,4 +293,117 @@ vows
           assert.throws ->
             db.deleteSync 'tim'
 
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'all()':
+        topic: (db) ->
+          db.all @callback
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 1
+          assert.equal docs[0].id, 'bob'
+          assert.equal docs[0].name, 'bob'
+          assert.equal docs[0].age, 35
+
+      'allSync()':
+        topic: (db) ->
+          db.allSync()
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 1
+          assert.equal docs[0].id, 'bob'
+          assert.equal docs[0].name, 'bob'
+          assert.equal docs[0].age, 35
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'find()':
+        topic: (db) ->
+          db.find age: 35, @callback
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 1
+          assert.equal docs[0].id, 'bob'
+          assert.equal docs[0].name, 'bob'
+          assert.equal docs[0].age, 35
+
+      'findSync()':
+        topic: (db) ->
+          db.findSync age: 35
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 1
+          assert.equal docs[0].id, 'bob'
+          assert.equal docs[0].name, 'bob'
+          assert.equal docs[0].age, 35
+
+      'find() empty':
+        topic: (db) ->
+          db.find age: 31, @callback
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 0
+
+      'findSync() empty':
+        topic: (db) ->
+          db.findSync age: 31
+
+        'should be successful': (docs) ->
+          assert.equal docs.length, 0
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'put()':
+        topic: (db) ->
+          db.put 'bob', age: 31, @callback
+
+        'should be successful': (err) ->
+          assert.isUndefined err
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'should be saved':
+        topic: (db) ->
+          db.getSync 'bob'
+
+        'successfully': (data) ->
+          assert.equal data.age, 31
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'putSync()':
+        topic: (db) ->
+          db
+
+        'should be successful': (db) ->
+          assert.doesNotThrow ->
+            db.putSync 'bob', age: 35
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'should be saved':
+        topic: (db) ->
+          db.getSync 'bob'
+
+        'successfully': (data) ->
+          assert.equal data.age, 35
+
   .export(module)

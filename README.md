@@ -16,7 +16,7 @@ npm install nosqlite
 connection = new(require('nosqlite').Connection)();
 
 // Custom path for store
-connection = new(require('nosqlite').Connection('/path/to/store');
+connection = new(require('nosqlite').Connection)('/path/to/store');
 ```
 
 ### Select a database

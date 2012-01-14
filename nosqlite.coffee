@@ -44,10 +44,9 @@ nosqlite.Connection::database = (name, mode) ->
       onto[k] = from[k]
     onto
 
-  satisy: (data, cond) ->
-    Object.keys(cond).forEach (k) ->
-      if data[k] isnt cond[k] then return false
-    true
+  satisfy: (data, cond) ->
+    Object.keys(cond).every (k) ->
+      if data[k] is cond[k] then true else false
 
   # Check if db exists
   exists: (cb) ->
@@ -87,12 +86,12 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Update doc by id
   put: (id, obj, cb) ->
-    @get id, (err, data) ->
-      data = @project JSON.parse(data), obj
+    @get id, (err, data) =>
+      data = @project data, obj
       fs.writeFile @file(id), JSON.stringify(data, null, 2), cb
 
   putSync: (id, obj) ->
-    data = @project JSON.parse(@getSync(id)), obj
+    data = @project @getSync(id), obj
     fs.writeFileSync @file(id), JSON.stringify(data, null, 2)
 
   # Create doc
@@ -104,27 +103,28 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Find a doc
   find: (cond, cb) ->
-    fs.readdir @dir, (err, files) ->
-      async.map files, (file, callback) ->
-        @get path.basename(file, '.json'), (err, data) ->
+    fs.readdir @dir, (err, files) =>
+      async.map files, (file, callback) =>
+        @get path.basename(file, '.json'), (err, data) =>
           if @satisfy data, cond then callback err, data else callback err, null
-      , cb
+      , (err, files) ->
+        cb err, files.filter (file) -> file?
 
   findSync: (cond) ->
     files = fs.readdirSync @dir
-    files = files.map (e) ->
+    files = files.map (file) =>
       data = @getSync path.basename(file, '.json')
-      if @satisy data, cond then data else null
-    files.filter (e) -> e?
+      if @satisfy data, cond then data else null
+    files.filter (file) -> file?
 
   # Get all docs
   all: (cb) ->
-    fs.readdir @dir, (err, files) ->
-      async.map files, (file, callback) ->
+    fs.readdir @dir, (err, files) =>
+      async.map files, (file, callback) =>
         @get path.basename(file, '.json'), callback
       , cb
 
   allSync: ->
     files = fs.readdirSync @dir
-    files.map (e) ->
+    files.map (file) =>
       @getSync path.basename file, '.json'
