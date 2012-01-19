@@ -1,10 +1,31 @@
 {
   "name": "nosqlite",
-  "description": "human readable nosql type filesystem json store",
   "version": "0.1.0",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
+  "description": "human readable nosql type filesystem json store",
+  "main": "./nosqlite",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pksunkara/nosqlite.git"
+  },
+  "keywords": [
+    "nosql",
+    "json",
+    "file",
+    "couch",
+    "filesystem",
+    "store"
+  ],
+  "homepage": "http://pksunkara.github.com/nosqlite",
+  "scripts": {
+    "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.coffee')",
+    "prepublish": "./node_modules/.bin/cake lib"
+  },
   "contributors": [
-    { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
+    {
+      "name": "Pavan Kumar Sunkara",
+      "email": "pavan.sss1991@gmail.com"
+    }
   ],
   "dependencies": {
     "async": "*",
@@ -14,15 +35,16 @@
     "coffee-script": "~1.2.0",
     "vows": "~0.6.0"
   },
-  "keywords": ["nosql", "json", "file", "couch", "filesystem", "store"],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/pksunkara/nosqlite.git"
+  "engines": {
+    "node": ">= 0.4"
   },
-  "main": "./nosqlite",
-  "scripts": {
-    "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.coffee')",
-    "prepublish": "./node_modules/.bin/cake lib"
+  "bugs": {
+    "url": "https://github.com/pksunkara/nosqlite/issues"
   },
-  "engines": { "node": ">= 0.4" }
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/pksunkara/nosqlite/raw/master/LICENSE"
+    }
+  ]
 }
