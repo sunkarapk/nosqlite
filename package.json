@@ -1,6 +1,6 @@
 {
   "name": "nosqlite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
   "description": "human readable nosql type filesystem json store",
   "main": "./nosqlite",
@@ -28,8 +28,7 @@
     }
   ],
   "dependencies": {
-    "async": "*",
-    "rimraf": "1.0.x"
+    "utile": "*"
   },
   "devDependencies": {
     "coffee-script": "~1.2.0",

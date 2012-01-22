@@ -9,8 +9,7 @@ nosqlite = module.exports
 # Requiring modules
 path = require 'path'
 fs = require 'fs'
-async = require 'async'
-rimraf = require 'rimraf'
+utile = require 'utile'
 
 # Declaring variables
 nosqlite.path = path.join __dirname, 'data'
@@ -73,10 +72,10 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Destroy db
   destroy: (cb) ->
-    rimraf @dir, cb
+    utile.rimraf @dir, cb
 
   destroySync: ->
-    rimraf.sync @dir
+    utile.rimraf.sync @dir
 
   # Get doc by id
   get: (id, cb) ->
@@ -113,7 +112,7 @@ nosqlite.Connection::database = (name, mode) ->
   # Find a doc
   find: (cond, cb) ->
     fs.readdir @dir, (err, files) =>
-      async.map files, (file, callback) =>
+      utile.async.map files, (file, callback) =>
         @get path.basename(file, '.json'), (err, data) =>
           if @satisfy data, cond then callback err, data else callback err, null
       , (err, files) ->
@@ -129,7 +128,7 @@ nosqlite.Connection::database = (name, mode) ->
   # Get all docs
   all: (cb) ->
     fs.readdir @dir, (err, files) =>
-      async.map files, (file, callback) =>
+      utile.async.map files, (file, callback) =>
         @get path.basename(file, '.json'), callback
       , cb
 
