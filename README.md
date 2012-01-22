@@ -150,7 +150,6 @@ Here is a list of [Contributors](http://github.com/pksunkara/nosqlite/contributo
 - Authentication system
 - Map-Reduce (views)
 - Auto ID generation
-- Handling crashes while writing
 - Buffer writes internally
 - Concurrent writes from multi processes
 
