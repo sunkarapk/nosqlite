@@ -48,6 +48,15 @@ nosqlite.Connection::database = (name, mode) ->
     Object.keys(cond).every (k) ->
       if data[k] is cond[k] then true else false
 
+  # Write files tmp and rename
+  _write: (id, data, cb) ->
+    fs.writeFile @file('.' + id), data, (err) =>
+      if err then cb err else fs.rename @file('.' + id), @file(id), cb
+
+  _writeSync: (id, data) ->
+    fs.writeFileSync @file('.' + id), data
+    fs.renameSync @file('.' + id), @file(id)
+
   # Check if db exists
   exists: (cb) ->
     path.exists @dir, cb
@@ -88,18 +97,18 @@ nosqlite.Connection::database = (name, mode) ->
   put: (id, obj, cb) ->
     @get id, (err, data) =>
       data = @project data, obj
-      fs.writeFile @file(id), JSON.stringify(data, null, 2), cb
+      @_write id, JSON.stringify(data, null, 2), cb
 
   putSync: (id, obj) ->
     data = @project @getSync(id), obj
-    fs.writeFileSync @file(id), JSON.stringify(data, null, 2)
+    @_writeSync id, JSON.stringify(data, null, 2)
 
   # Create doc
   post: (obj, cb) ->
-    fs.writeFile @file(obj.id or obj._id), JSON.stringify(obj, null, 2), cb
+    @_write obj.id or obj._id, JSON.stringify(obj, null, 2), cb
 
   postSync: (obj) ->
-    fs.writeFileSync @file(obj.id or obj._id), JSON.stringify(obj, null, 2)
+    @_writeSync obj.id or obj._id, JSON.stringify(obj, null, 2)
 
   # Find a doc
   find: (cond, cb) ->
