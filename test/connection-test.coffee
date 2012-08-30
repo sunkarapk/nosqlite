@@ -6,7 +6,7 @@ vows
   .describe('connection')
   .addBatch
     'Connection':
-      topic: require '../nosqlite'
+      topic: require '../src/nosqlite'
 
       'should have default path': (nosqlite) ->
         assert.equal nosqlite.path, path.resolve(__dirname, '..', 'data')

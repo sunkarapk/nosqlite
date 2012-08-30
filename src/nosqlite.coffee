@@ -12,7 +12,7 @@ fs = require 'fs'
 utile = require 'utile'
 
 # Declaring variables
-nosqlite.path = path.join __dirname, 'data'
+nosqlite.path = path.join __dirname, '..', 'data'
 
 # Connection class for nosqlite
 nosqlite.Connection = (arg) ->
