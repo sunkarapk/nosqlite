@@ -58,10 +58,10 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Check if db exists
   exists: (cb) ->
-    path.exists @dir, cb
+    fs.exists @dir, cb
 
   existsSync: ->
-    path.existsSync @dir
+    fs.existsSync @dir
 
   # Create db
   create: (cb) ->
