@@ -38,7 +38,7 @@ vows
           db
 
         'should throw error': (db) ->
-          assert.throws db.create()
+          assert.throws db.create
 
   .addBatch
     'Database "dummy"':
@@ -76,7 +76,7 @@ vows
 
         'should be successful': (ex) ->
           assert.isUndefined ex
-          assert.isTrue path.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
+          assert.isTrue fs.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
 
   .addBatch
     'Database "dummy"':
@@ -89,7 +89,7 @@ vows
 
         'should be successful': (ex) ->
           assert.isUndefined ex
-          assert.isFalse path.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
+          assert.isFalse fs.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
 
   .addBatch
     'Database "dummy"':
@@ -102,7 +102,7 @@ vows
 
         'should be successful': (db) ->
           assert.isUndefined db.createSync()
-          assert.isTrue path.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
+          assert.isTrue fs.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
 
   .addBatch
     'Database "dummy"':
@@ -115,7 +115,7 @@ vows
 
         'should be successful': (db) ->
           assert.isUndefined db.destroySync()
-          assert.isFalse path.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
+          assert.isFalse fs.existsSync(path.resolve(__dirname, 'fixtures/dummy'))
 
   .addBatch
     'Database "test"':

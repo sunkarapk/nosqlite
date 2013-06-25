@@ -1,6 +1,6 @@
 {
   "name": "nosqlite",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
   "description": "human readable nosql type filesystem json store",
   "main": "./lib/nosqlite",
@@ -27,14 +27,14 @@
     }
   ],
   "dependencies": {
-    "utile": "*"
+    "utile": "0.2.x"
   },
   "devDependencies": {
-    "coffee-script": "1.3.x",
-    "vows": "0.6.x"
+    "coffee-script": "1.6.x",
+    "vows": "0.7.x"
   },
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 0.8"
   },
   "bugs": {
     "url": "https://github.com/pksunkara/nosqlite/issues"
