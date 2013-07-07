@@ -111,7 +111,7 @@ nosqlite.Connection::database = (name, mode) ->
 
   postSync: (obj) ->
     obj.id = cuid() unless obj.id or obj._id
-    @_writeSync obj.id or obj._id or cuid(), JSON.stringify(obj, null, 2)
+    @_writeSync obj.id or obj._id, JSON.stringify(obj, null, 2)
     obj.id or obj._id
 
   # Find a doc
