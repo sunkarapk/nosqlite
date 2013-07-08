@@ -64,13 +64,17 @@ db.destroySync();
 
 ### Create a document
 
+If `obj.id` (or `obj._id` ) is not supplied, `obj.id` is auto generated.
+
 ```js
 // Async
-db.post(obj, function (err) {
+db.post(obj, function (err, id) {
   if (err) throw err;
+  console.log(id);
 });
 
 // Sync
+// returns id
 db.postSync(obj);
 ```
 
@@ -147,9 +151,9 @@ Here is a list of [Contributors](http://github.com/pksunkara/nosqlite/contributo
 
 ### TODO
 
+- ~~Auto ID generation~~
 - Authentication system
 - Map-Reduce (views)
-- Auto ID generation
 - Buffer writes internally
 - Concurrent writes from multi processes
 
