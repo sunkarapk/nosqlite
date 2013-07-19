@@ -170,8 +170,8 @@ vows
             age: 31
           , @callback
 
-        'should be successful': (err) ->
-          assert.isUndefined err
+        'should be successful': (err, id) ->
+          assert.isNull err
 
   .addBatch
     'Database "test"':
@@ -323,6 +323,51 @@ vows
       topic: () ->
         connection.database 'test'
 
+      'postSync() without an id':
+        topic: (db) ->
+          @db = db
+          db.postSync
+            name: 'randal'
+            age: 24
+
+        'should generate one': (id) ->
+          assert.isString id
+        
+        'should save successfully': (id) ->
+          data = @db.getSync id
+          assert.equal data.id, id
+          assert.equal data.name, 'randal'
+          assert.equal data.age, 24
+          @db.deleteSync id
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
+      'post() without an id':
+        topic: (db) ->
+          @db = db
+          db.post
+            name: 'randal'
+            age: 24
+          , @callback
+      
+        'should generate one': (err, id) ->
+          assert.isString id
+
+        'should save successfully': (err, id) ->
+          data = @db.getSync id
+          assert.equal data.id, id
+          assert.equal data.name, 'randal'
+          assert.equal data.age, 24
+          @db.deleteSync id
+
+  .addBatch
+    'Database "test"':
+      topic: () ->
+        connection.database 'test'
+
       'find()':
         topic: (db) ->
           db.find age: 35, @callback
@@ -366,8 +411,8 @@ vows
         topic: (db) ->
           db.put 'bob', age: 31, @callback
 
-        'should be successful': (err) ->
-          assert.isUndefined err
+        'should be successful': (err, id) ->
+          assert.isNull err
 
   .addBatch
     'Database "test"':

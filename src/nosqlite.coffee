@@ -10,6 +10,7 @@ nosqlite = module.exports
 path = require 'path'
 fs = require 'fs'
 utile = require 'utile'
+cuid = require 'cuid'
 
 # Declaring variables
 nosqlite.path = path.join __dirname, '..', 'data'
@@ -104,10 +105,14 @@ nosqlite.Connection::database = (name, mode) ->
 
   # Create doc
   post: (obj, cb) ->
-    @_write obj.id or obj._id, JSON.stringify(obj, null, 2), cb
+    obj.id = cuid() unless obj.id or obj._id
+    @_write obj.id or obj._id, JSON.stringify(obj, null, 2), (err) ->
+      if err then cb err else cb null, obj.id or obj._id
 
   postSync: (obj) ->
+    obj.id = cuid() unless obj.id or obj._id
     @_writeSync obj.id or obj._id, JSON.stringify(obj, null, 2)
+    obj.id or obj._id
 
   # Find a doc
   find: (cond, cb) ->
