@@ -27,14 +27,13 @@ nosqlite.Connection = (arg) ->
     @path = arg
 
 # Database class which we work with
-nosqlite.Connection::database = (name, modem, idName) ->
+nosqlite.Connection::database = (name, mode, key) ->
   that = this
 
   # Variables
   dir: path.resolve that.path, name
   name: name || 'test'
   mode: mode || '0775'
-  idName: idName || 'id'
 
   # Utils
   file: (id) ->
@@ -106,14 +105,24 @@ nosqlite.Connection::database = (name, modem, idName) ->
 
   # Create doc
   post: (obj, cb) ->
-    obj[idName] = cuid() unless obj[idName]
-    @_write obj[idName], JSON.stringify(obj, null, 2), (err) ->
-      if err then cb err else cb null, obj[idName]
+    if key
+      obj[key] = cuid() unless obj[key]
+      @_write obj[key], JSON.stringify(obj, null, 2), (err) ->
+        if err then cb err else cb null, obj[key]
+    else
+      obj.id = cuid() unless obj.id or obj._id
+      @_write obj.id or obj._id, JSON.stringify(obj, null, 2), (err) ->
+        if err then cb err else cb null, obj.id or obj._id
 
   postSync: (obj) ->
-    obj[idName] = cuid() unless obj[idName]
-    @_writeSync obj[idName], JSON.stringify(obj, null, 2)
-    obj[idName]
+    if key
+      obj[key] = cuid() unless obj[key]
+      @_writeSync obj[key], JSON.stringify(obj, null, 2)
+      obj[key]
+    else
+      obj.id = cuid() unless obj.id or obj._id
+      @_writeSync obj.id or obj._id, JSON.stringify(obj, null, 2)
+      obj.id or obj._id
 
   # Find a doc
   find: (cond, cb) ->
