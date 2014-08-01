@@ -1,6 +1,6 @@
 {
   "name": "nosqlite",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
   "description": "human readable nosql type filesystem json store",
   "main": "./lib/nosqlite",
@@ -18,7 +18,7 @@
   ],
   "homepage": "http://pksunkara.github.com/nosqlite",
   "scripts": {
-    "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.coffee')"
+    "test": "./node_modules/.bin/coffee -c -o src src && ./node_modules/.bin/coffee -c -o test test && ./node_modules/.bin/vows --spec $(find test -name '*-test.js') && rm src/*.js test/*-test.js"
   },
   "contributors": [
     {
@@ -28,10 +28,10 @@
   ],
   "dependencies": {
     "utile": "0.2.x",
-    "cuid": "~1.1.7"
+    "cuid": "1.2.x"
   },
   "devDependencies": {
-    "coffee-script": "1.6.x",
+    "coffee-script": "1.7.x",
     "vows": "0.7.x"
   },
   "engines": {
