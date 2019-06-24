@@ -1,3 +1,5 @@
 .gitignore
 src
+test
+data
 .travis.yml
