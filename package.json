@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "async": "^3.1.0",
-    "cuid": "^1.2.0",
+    "cuid": "^2.1.6",
     "rimraf": "^2.6.3"
   },
   "devDependencies": {
