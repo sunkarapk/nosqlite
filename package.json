@@ -27,11 +27,12 @@
     }
   ],
   "dependencies": {
-    "utile": "0.2.x",
-    "cuid": "1.2.x"
+    "async": "^3.1.0",
+    "cuid": "1.2.x",
+    "rimraf": "^2.6.3"
   },
   "devDependencies": {
-    "coffee-script": "1.7.x",
+    "coffeescript": "^1.12.7",
     "vows": "^0.8.2"
   },
   "engines": {
