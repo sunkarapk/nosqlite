@@ -1,6 +1,6 @@
 {
   "name": "nosqlite",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
   "description": "human readable nosql type filesystem json store",
   "main": "./lib/nosqlite",
@@ -36,7 +36,7 @@
     "vows": "^0.8.2"
   },
   "engines": {
-    "node": ">= 0.8"
+    "node": ">=6"
   },
   "bugs": {
     "url": "https://github.com/pksunkara/nosqlite/issues"
